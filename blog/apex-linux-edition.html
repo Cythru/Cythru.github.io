@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>APEX Linux Edition — Cythru</title>
+  <meta name="description" content="How we refactored a bare-metal kernel into a fully modular Linux-based OS built with Rust, C++, and Zig — and why the architecture matters." />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #0a0a0a;
+      --bg-card: #111111;
+      --bg-nav: rgba(10, 10, 10, 0.85);
+      --text: #e8e8e8;
+      --text-muted: #888888;
+      --accent: #7c6af7;
+      --accent-dim: rgba(124, 106, 247, 0.15);
+      --border: rgba(255, 255, 255, 0.07);
+      --font-ui: -apple-system, 'Segoe UI', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-ui);
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ──────────────────────────────────────────────── */
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 60px;
+      background: var(--bg-nav);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-wordmark {
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-wordmark span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-link:hover {
+      color: var(--text);
+    }
+
+    .nav-link svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    /* ── ARTICLE ──────────────────────────────────────────── */
+
+    .article-wrapper {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 100px 2rem 4rem;
+    }
+
+    .article-header {
+      padding-bottom: 2rem;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .article-tag {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.5rem;
+      border-radius: 3px;
+      background: var(--accent-dim);
+      color: var(--accent);
+      border: 1px solid rgba(124, 106, 247, 0.3);
+    }
+
+    .article-date {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .article-header h1 {
+      font-size: clamp(1.5rem, 3.5vw, 2rem);
+      font-weight: 600;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.8rem;
+    }
+
+    .article-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ── PROSE ────────────────────────────────────────────── */
+
+    .article-body p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #c8cad0;
+      margin-bottom: 1.2rem;
+    }
+
+    .article-body h2 {
+      font-family: var(--font-mono);
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--accent);
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .article-body h3 {
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-top: 1.8rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .article-body code {
+      font-family: var(--font-mono);
+      font-size: 0.88em;
+      background: rgba(124, 106, 247, 0.1);
+      color: var(--accent);
+      padding: 0.15rem 0.4rem;
+      border-radius: 3px;
+    }
+
+    .article-body pre {
+      background: #0f0f0f;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 6px;
+      padding: 1.2rem 1.5rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+    }
+
+    .article-body pre code {
+      font-family: var(--font-mono);
+      font-size: 0.83rem;
+      color: #c8cad0;
+      background: none;
+      padding: 0;
+      border-radius: 0;
+      line-height: 1.7;
+    }
+
+    .article-body ul {
+      margin: 1rem 0 1.2rem 1.5rem;
+      color: #c8cad0;
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    .article-body ul li {
+      margin-bottom: 0.4rem;
+    }
+
+    .article-body strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .article-body em {
+      color: var(--text-muted);
+    }
+
+    .article-body a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .article-body a:hover {
+      border-color: var(--accent);
+    }
+
+    .ascii-diagram {
+      background: #0f0f0f;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 6px;
+      padding: 1.2rem 1.5rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: #c8cad0;
+      line-height: 1.6;
+      white-space: pre;
+    }
+
+    .ascii-diagram .accent {
+      color: var(--accent);
+    }
+
+    .ascii-diagram .muted {
+      color: var(--text-muted);
+    }
+
+    /* ── FOOTER ───────────────────────────────────────────── */
+
+    footer {
+      padding: 2.5rem 2rem;
+      border-top: 1px solid var(--border);
+      margin-top: 4rem;
+    }
+
+    .footer-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-left {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-right:hover {
+      color: var(--text);
+    }
+
+    .footer-right svg {
+      width: 14px;
+      height: 14px;
+      fill: currentColor;
+    }
+
+    .footer-right.kofi:hover {
+      color: #ff5e5b;
+    }
+
+    /* ── RESPONSIVE ───────────────────────────────────────── */
+
+    @media (max-width: 680px) {
+      nav {
+        padding: 0 1.2rem;
+      }
+
+      .article-wrapper {
+        padding: 90px 1.2rem 3rem;
+      }
+
+      .article-header h1 {
+        font-size: 1.4rem;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-wordmark" href="/">Cy<span>thru</span></a>
+    <div class="nav-links">
+      <a class="nav-link" href="/#blog">← All posts</a>
+      <a class="nav-link" href="https://github.com/Cythru" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
+                   0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13
+                   -.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66
+                   .07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15
+                   -.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27
+                   .68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12
+                   .51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48
+                   0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+        GitHub
+      </a>
+    </div>
+  </nav>
+
+  <!-- ARTICLE -->
+  <article class="article-wrapper">
+
+    <header class="article-header">
+      <div class="article-meta">
+        <span class="article-tag">OS / Systems</span>
+        <span class="article-date">2026-02-26</span>
+      </div>
+      <h1>APEX Linux Edition: Building a Fully Modular Linux OS in Rust, C++, and Zig</h1>
+      <p class="article-subtitle">How we refactored a bare-metal kernel into a modular Linux-based OS &mdash; and why the architecture matters.</p>
+    </header>
+
+    <div class="article-body">
+
+      <h2>Introduction</h2>
+
+      <p>
+        APEX Linux Edition v0.2.0 &ldquo;Forge&rdquo; is out. It represents a complete architectural pivot &mdash; from a custom bare-metal kernel (v0.1.0 &ldquo;Genesis&rdquo;) to a fully modular Linux-based operating system built with Rust, C++, and Zig. This is not a cosmetic change. Every subsystem was redesigned, every interface was rethought, and the result is something fundamentally different from what we started with.
+      </p>
+      <p>
+        This post covers why we made the switch, how the module system works at a technical level, what each of the 19 modules does, how the gaming layer integrates Steam and Proton without friction, and how a single Zig build command orchestrates Rust, C++, and Zig code into a bootable ISO. If you care about systems architecture, this is the deep dive.
+      </p>
+
+      <h2>Why move off bare-metal?</h2>
+
+      <p>
+        The bare-metal kernel was a great learning exercise. We wrote our own bootloader, our own memory manager, our own interrupt dispatcher. It worked. But there were real costs that became harder to justify as the project matured.
+      </p>
+      <p>
+        We were reimplementing things that Linux already does correctly &mdash; process scheduling, virtual memory management, driver ecosystems, hardware compatibility tables. Every week we spent writing another PCI enumeration routine or USB host controller driver was a week we were not spending on the things that actually differentiate APEX: the module system, the gaming layer, the snapshot engine, the package manager.
+      </p>
+      <p>
+        The insight was simple: the value is not in owning every layer. It is in <strong>owning the right layers</strong>. Linux gives us a battle-tested kernel with decades of driver support, a stable syscall ABI, and a security model that has been audited by thousands of engineers. We take that foundation and build everything above it &mdash; PID 1, the display server, the gaming stack, the network manager, the package system, the update mechanism. Every layer the user interacts with is ours.
+      </p>
+      <p>
+        The bare-metal kernel still exists in the repository history. It was an important phase. But APEX is no longer a kernel project &mdash; it is an operating system project, and that distinction matters.
+      </p>
+
+      <h2>The module system</h2>
+
+      <p>
+        Every component in APEX is a self-contained module. There are no monolithic daemons, no tightly coupled subsystems, no hidden dependencies between components. Each module is a standalone binary with a well-defined interface, declared through a manifest file called <code>apex_module.toml</code>.
+      </p>
+      <p>
+        The manifest declares everything the module system needs to know: what the module provides, what it requires, which other modules it depends on, what Linux capabilities it needs, and how to build it. Here is a real example from the gaming module:
+      </p>
+
+      <pre><code>[module]
+name = "gaming"
+version = "0.2.0"
+description = "Steam/Proton/Gamescope integration"
+language = "rust"
+category = "desktop"
+
+[capabilities]
+provides = ["steam-integration", "proton-management",
+            "gamescope", "performance-tuning", "overlay"]
+requires = ["linux-kernel >= 6.0"]
+
+[dependencies]
+modules = ["init", "display"]
+
+[build]
+type = "rust-bin"
+entry = "src/main.rs"
+
+[runtime]
+user = "root"
+capabilities = ["CAP_SYS_NICE", "CAP_SYS_ADMIN",
+                "CAP_NET_ADMIN"]</code></pre>
+
+      <p>
+        The module system itself (the <code>module</code> crate) is responsible for loading, registering, and managing all other modules. It implements an ELF64 module loader that handles relocations (<code>R_X86_64_64</code>, <code>R_X86_64_PC32</code>, <code>R_X86_64_PLT32</code>, <code>R_X86_64_GOTPCREL</code>, <code>R_X86_64_32S</code>), maintains a symbol table of up to 16,384 entries, and supports up to 256 simultaneously loaded modules.
+      </p>
+      <p>
+        Crucially, the module ABI is stable and versioned. The <code>ApexModuleDescriptor</code> struct is defined in a C header (<code>include/apex/module.h</code>), which means modules can be written in any language that can produce ELF shared objects with C-compatible symbols &mdash; Rust, C++, Zig, plain C, anything. This is by design. We do not want the module system to be language-locked. Today, all 19 modules happen to be written in Rust, but the C++ drivers and Zig utilities link through the same ABI without special handling.
+      </p>
+      <p>
+        Hot-reload is supported at the module level. You can unload and reload a module at runtime without restarting the system. The module system tracks dependency graphs and prevents you from unloading a module that other running modules depend on. This is not theoretical &mdash; it is how we do development. Change a module, rebuild it, hot-reload it, test it, all without rebooting.
+      </p>
+
+      <h2>The 19 modules</h2>
+
+      <p>
+        APEX ships with 19 modules organized into three tiers: <strong>Core</strong>, <strong>System</strong>, and <strong>Desktop</strong>. The tiers reflect boot order and dependency direction &mdash; Core modules start first and have no dependencies on higher tiers. System modules depend on Core. Desktop modules depend on both.
+      </p>
+
+      <div class="ascii-diagram"><span class="accent">DESKTOP</span>  <span class="muted">[ user-facing services ]</span>
+  display  gaming  audio  network  compat  ai  www  re_suite
+
+<span class="accent">SYSTEM</span>   <span class="muted">[ OS plumbing ]</span>
+  init  session  snapshot  security  packages  update  hardware
+
+<span class="accent">CORE</span>     <span class="muted">[ kernel-adjacent primitives ]</span>
+  vfs  ipc  exec  net_stack  module
+
+<span class="muted">────────────────────────────────────────────────────</span>
+<span class="accent">LINUX KERNEL 6.12</span>  <span class="muted">[ scheduler, mm, drivers, fs ]</span></div>
+
+      <p>
+        <strong>Core tier</strong> &mdash; These are the foundational primitives. <code>vfs</code> provides the virtual filesystem layer. <code>ipc</code> handles inter-process communication between modules. <code>exec</code> manages process execution and lifecycle. <code>net_stack</code> provides the network stack abstraction. <code>module</code> is the module loader itself &mdash; the only module that bootstraps without going through the module system.
+      </p>
+      <p>
+        <strong>System tier</strong> &mdash; These are the operational services. <code>init</code> is PID 1 &mdash; it brings up the system, manages service dependencies, and handles shutdown. <code>session</code> manages user sessions and seat tracking. <code>snapshot</code> provides copy-on-write system snapshots for instant backup and restore. <code>security</code> handles MAC policies and sandboxing. <code>packages</code> is the <code>apx</code> package manager with full dependency resolution. <code>update</code> handles OTA updates with delta patches and automatic rollback. <code>hardware</code> manages device detection, driver binding, and hardware abstraction.
+      </p>
+      <p>
+        <strong>Desktop tier</strong> &mdash; These are the user-facing services. <code>display</code> is the Wayland compositor. <code>gaming</code> handles Steam, Proton, and Gamescope. <code>audio</code> manages PipeWire audio routing. <code>network</code> provides NetworkManager-level network configuration. <code>compat</code> handles compatibility layers for non-native applications. <code>ai</code> provides on-device inference capabilities. <code>www</code> implements the APEX-WWW distributed protocol. <code>re_suite</code> is the built-in reverse engineering toolkit with disassembler, kprobes, and execution tracer.
+      </p>
+
+      <h2>Gaming-first design</h2>
+
+      <p>
+        APEX is, unambiguously, a gaming-first OS. The gaming module is not a bolt-on afterthought &mdash; it is a first-class citizen with deep integration into the display, hardware, and performance subsystems.
+      </p>
+      <p>
+        The <strong>Steam integration</strong> works by parsing Steam&rsquo;s VDF (Valve Data Format) library files directly. APEX reads <code>libraryfolders.vdf</code> to discover game install locations and <code>appmanifest_*.acf</code> files to enumerate installed titles. There is no dependency on the Steam client being running for game discovery &mdash; APEX can inventory your library from cold storage.
+      </p>
+      <p>
+        <strong>Proton management</strong> goes beyond just launching games through Wine. The gaming module configures the full Proton environment per-game: <code>STEAM_COMPAT_DATA_PATH</code>, <code>STEAM_COMPAT_CLIENT_INSTALL_PATH</code>, <code>WINEPREFIX</code>, <code>WINEESYNC</code>, <code>WINEFSYNC</code>, DXVK HUD toggles, VKD3D configuration, and per-title environment overrides. It manages Proton version selection, prefix initialization, and DXVK cache directories. When you launch a game, the gaming module builds the exact environment that game needs and hands it off to Proton with zero user configuration required.
+      </p>
+      <p>
+        <strong>Gamescope integration</strong> provides per-game display isolation. Each game runs inside its own nested Wayland compositor with configurable resolution scaling, refresh rate targeting, and AMD FSR (FidelityFX Super Resolution) profiles. The gaming module generates Gamescope launch parameters based on the game&rsquo;s profile &mdash; internal resolution, output resolution, FSR sharpness, frame limiter settings, and HDR flags. This means you can run a game at 720p internal with FSR upscaling to 1080p at a locked 60fps, all managed automatically.
+      </p>
+      <p>
+        <strong>Performance tuning</strong> runs alongside the gaming stack. The gaming module manages CPU governor switching &mdash; flipping to <code>performance</code> when a game launches and back to <code>powersave</code> when it exits. It handles GPU clock management on AMD hardware through sysfs interfaces, configures TDP limits on supported hardware, and generates MangoHud overlay configurations for real-time performance monitoring. The overlay config includes FPS, frametime graphs, CPU and GPU utilization, VRAM usage, and temperature readouts &mdash; all generated from a declarative profile rather than requiring users to hand-write MangoHud config files.
+      </p>
+
+      <h2>Build system: Zig orchestrating everything</h2>
+
+      <p>
+        The APEX build system is one of the more unusual aspects of the project. The top-level <code>build.zig</code> file is the single entry point for the entire OS build. It does not just build Zig code &mdash; it orchestrates everything.
+      </p>
+      <p>
+        Here is what happens when you run <code>zig build iso</code>:
+      </p>
+      <ul>
+        <li>Zig compiles its own utilities (<code>utils.zig</code> and any Zig-native tools)</li>
+        <li>Zig invokes Cargo to build all 19 Rust modules &mdash; each module is a separate crate in <code>modules/</code>, and Cargo resolves their internal dependency graph through a workspace <code>Cargo.toml</code></li>
+        <li>Zig invokes CMake to build the C++ drivers in <code>drivers/</code> &mdash; hardware abstraction code, GPU kernel module shims, and low-level device interfaces</li>
+        <li>All build artifacts are collected and linked according to the module manifests</li>
+        <li>The rootfs is assembled: directory structure, module binaries, configuration files, default package database, and boot configuration</li>
+        <li>A bootable ISO image is produced with the Linux kernel, initramfs, and the complete APEX userspace</li>
+      </ul>
+      <p>
+        One command. No intermediate steps. No shell script orchestration. Zig&rsquo;s build system is powerful enough to invoke external build tools as build steps, track their inputs and outputs for incremental compilation, and parallelise independent build targets across all available cores. The result is a build system that is both reproducible and fast &mdash; a clean build from source to bootable ISO takes minutes, not hours.
+      </p>
+      <p>
+        The choice of Zig as the build orchestrator was deliberate. We considered Make, CMake, Meson, and Bazel. Make and CMake lack the expressiveness to describe this kind of polyglot build cleanly. Meson comes close but does not handle Rust workspaces well. Bazel could do it but brings enormous complexity. Zig&rsquo;s build system is a real programming language (Zig itself) with first-class support for invoking system commands, declaring dependencies between steps, and producing artifacts &mdash; and it comes free with the Zig compiler we were already using for the utility code.
+      </p>
+
+      <h2>Snapshot and rollback</h2>
+
+      <p>
+        The <code>snapshot</code> module implements copy-on-write system snapshots. Before any system update, package installation, or configuration change, APEX automatically creates a snapshot of the current system state. If something goes wrong, you can roll back to any previous snapshot instantly.
+      </p>
+      <p>
+        This is not filesystem-level snapshotting like Btrfs subvolumes (though APEX can use Btrfs). The snapshot module operates at the APEX layer &mdash; it captures the state of installed packages, module configurations, system settings, and boot configuration. A rollback restores all of these atomically. The update module integrates directly with snapshots: every OTA update creates a pre-update snapshot, applies delta patches, verifies the result, and only commits the update if verification passes. If verification fails, the pre-update snapshot is restored automatically. Zero manual intervention.
+      </p>
+
+      <h2>The reverse engineering toolkit</h2>
+
+      <p>
+        The <code>re_suite</code> module is unusual for an operating system &mdash; it ships a built-in reverse engineering toolkit. This includes a disassembler capable of decoding x86-64 instruction streams, a kprobes interface for dynamic kernel tracing, an execution tracer that records syscall sequences and memory access patterns, and a binary analysis framework for inspecting ELF binaries.
+      </p>
+      <p>
+        Why ship this in an OS? Because we believe that users should be able to understand what their system is doing at every level. The RE toolkit is not a security afterthought &mdash; it is a first-class diagnostic tool. If a game is crashing through Proton, you can trace the exact syscall sequence that diverges from expected behavior. If a module is misbehaving, you can attach kprobes to its hot paths without recompiling anything. Transparency is not optional.
+      </p>
+
+      <h2>The APEX-WWW distributed protocol</h2>
+
+      <p>
+        The <code>www</code> module implements APEX-WWW, a distributed protocol designed for peer-to-peer content distribution and decentralized service discovery. While still in early development, the protocol is already used internally for distributing package metadata across APEX instances. The long-term vision is a fully decentralized alternative to traditional client-server web architecture &mdash; content-addressed, cryptographically verified, and resistant to single points of failure.
+      </p>
+      <p>
+        This is experimental. We are not claiming it replaces HTTP tomorrow. But the infrastructure is there, it works, and it ships as a module you can enable or disable without affecting anything else.
+      </p>
+
+      <h2>What&rsquo;s next</h2>
+
+      <p>
+        The v0.2.0 &ldquo;Forge&rdquo; release establishes the modular foundation. The roadmap for the next series of releases focuses on four areas:
+      </p>
+      <ul>
+        <li><strong>SMP multicore scheduler integration</strong> &mdash; Leveraging Linux&rsquo;s multicore scheduling with APEX-specific task priority hints from the gaming and performance modules</li>
+        <li><strong>ACPI power management module</strong> &mdash; Fine-grained power state control, suspend/resume hooks for all modules, and battery-aware performance profiles</li>
+        <li><strong>ApexFS custom filesystem</strong> &mdash; A purpose-built filesystem optimized for gaming workloads: fast random read, aggressive prefetch, and transparent compression for game assets</li>
+        <li><strong>Public package registry</strong> &mdash; An official APEX package registry with signed packages, automated builds, and community contributions</li>
+      </ul>
+      <p>
+        The source is public. The development is in the open. If you want to follow along, contribute, or just read the code, the repository is at <a href="https://github.com/Cythru/apex-kernel" target="_blank" rel="noopener">github.com/Cythru/apex-kernel</a>.
+      </p>
+
+    </div>
+  </article>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-left">
+        <span>Cythru &mdash; Open Source Initiative</span><br>
+        <span>Released under the GNU General Public License v3.0</span>
+      </div>
+      <div class="footer-links">
+        <a class="footer-right" href="https://github.com/Cythru" target="_blank" rel="noopener">
+          <svg viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
+                     0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13
+                     -.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66
+                     .07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15
+                     -.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27
+                     .68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12
+                     .51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48
+                     0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+          </svg>
+          github.com/Cythru
+        </a>
+        <a class="footer-right kofi" href="https://ko-fi.com/opensourcemovement" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M23.881 8.948c-.773-4.085-4.859-4.593-4.859-4.593H.723c-.604 0-.679.798-.679.798s-.082
+                     7.324-.022 11.822c.164 2.424 2.586 2.672 2.586 2.672s8.267-.023 11.966-.049c2.438-.426
+                     2.683-2.566 2.658-3.734 4.352.24 7.422-2.831 6.649-6.916zm-11.062 3.511c-1.246 1.453-4.011
+                     3.976-4.011 3.976s-2.765-2.524-4.011-3.976C3.24 10.795 3.617 8.38 5.28 8.282c1.25-.07 2.024.618
+                     2.852 1.43.831-.814 1.675-1.5 2.851-1.43 1.664.098 2.042 2.513.836 4.177z"/>
+          </svg>
+          Support on Ko-fi
+        </a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
