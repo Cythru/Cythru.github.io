@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cythru — We build at the hardware boundary.</title>
+  <meta name="description" content="Cythru is an open-source engineering collective building low-level systems in C++, Rust, and Zig. Zero abstractions. Maximum control." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-wordmark" href="#">Cy<span>thru</span></a>
+    <a class="nav-link" href="https://github.com/Cythru" target="_blank" rel="noopener">
+      <svg viewBox="0 0 16 16" aria-hidden="true">
+        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
+                 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13
+                 -.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66
+                 .07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15
+                 -.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27
+                 .68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12
+                 .51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48
+                 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+      </svg>
+      GitHub
+    </a>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Cythru Engineering</p>
+      <h1 class="hero-headline">We build at the<br>hardware boundary.</h1>
+      <p class="hero-sub">
+        VoidForge &mdash; <em>Open systems. Zero abstractions.</em>
+      </p>
+      <a class="btn btn-primary" href="https://github.com/Cythru" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
+                   0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13
+                   -.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66
+                   .07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15
+                   -.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27
+                   .68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12
+                   .51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48
+                   0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+        View on GitHub
+      </a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <p class="section-label reveal">About</p>
+      <h2 class="reveal">Who we are</h2>
+      <p class="reveal">
+        Cythru is an open-source engineering collective focused on low-level systems
+        software. We write close to the metal — operating system internals, network
+        stacks, compilers, and security tooling — prioritizing correctness, performance,
+        and long-term maintainability over trend-driven complexity.
+      </p>
+      <p class="reveal">
+        Our work is public, our decisions are transparent, and our output belongs to
+        the community. We believe the most important software in the world should be
+        understandable by anyone willing to read it.
+      </p>
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section id="philosophy">
+    <div class="container">
+      <p class="section-label reveal">Philosophy</p>
+      <h2 class="reveal">How we build</h2>
+      <div class="philosophy-grid">
+        <div class="philosophy-item reveal">
+          <h3>Modular by default</h3>
+          <p>Every component is independently buildable, testable, and replaceable.
+             Monolithic coupling is a design failure, not a shortcut.</p>
+        </div>
+        <div class="philosophy-item reveal">
+          <h3>No unnecessary abstractions</h3>
+          <p>Abstractions are introduced only when they remove real complexity — not
+             to satisfy patterns or conventions. Readability beats cleverness.</p>
+        </div>
+        <div class="philosophy-item reveal">
+          <h3>Own your dependencies</h3>
+          <p>We audit what we pull in. Shallow dependency trees are a feature.
+             If we can write it small and correct ourselves, we do.</p>
+        </div>
+        <div class="philosophy-item reveal">
+          <h3>Measure everything</h3>
+          <p>Performance claims require benchmarks. Security claims require proofs.
+             Intuition is a starting point, not a conclusion.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STACK -->
+  <section id="stack">
+    <div class="container">
+      <p class="section-label reveal">Stack</p>
+      <h2 class="reveal">Languages we trust</h2>
+      <div class="stack-cards">
+        <div class="stack-card reveal">
+          <div class="stack-lang">C++</div>
+          <p>The lingua franca of systems work. Decades of tooling, precise
+             control over memory layout, and zero-overhead abstractions when
+             you need them.</p>
+        </div>
+        <div class="stack-card reveal">
+          <div class="stack-lang">Rust</div>
+          <p>Memory safety without a garbage collector. Ownership semantics
+             enforce correctness at compile time — the right trade-off for
+             security-critical components.</p>
+        </div>
+        <div class="stack-card reveal">
+          <div class="stack-lang">Zig</div>
+          <p>Comptime evaluation, no hidden control flow, and a build system
+             that actually works. Our choice when we need C-level simplicity
+             with modern ergonomics.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VOIDFORGE -->
+  <section id="voidforge">
+    <div class="container">
+      <p class="section-label reveal">Open Source</p>
+      <div class="vf-header reveal">
+        <h2>VoidForge</h2>
+        <span class="vf-badge">Initiative</span>
+      </div>
+      <p class="reveal">
+        VoidForge is Cythru's open-source commitment — everything we build is
+        released under free software licenses and developed in the open from
+        day one. No delayed source drops, no open-core bait-and-switch, no
+        proprietary forks.
+      </p>
+      <p class="reveal">
+        We forge systems from nothing: no inherited cruft, no legacy obligations,
+        no design-by-committee. Each project starts with a blank slate and a
+        clear specification.
+      </p>
+      <p class="vf-tagline reveal">Open systems. Zero abstractions.</p>
+      <a class="vf-link reveal" href="https://github.com/Cythru" target="_blank" rel="noopener">
+        Browse all projects
+        <svg viewBox="0 0 16 16" aria-hidden="true">
+          <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0
+               0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293
+               8.5H1.5A.5.5 0 0 1 1 8z"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-left">
+        <span>Cythru &mdash; VoidForge Initiative</span><br>
+        <span>Released under the GNU General Public License v3.0</span>
+      </div>
+      <a class="footer-right" href="https://github.com/Cythru" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
+                   0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13
+                   -.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66
+                   .07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15
+                   -.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27
+                   .68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12
+                   .51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48
+                   0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+        github.com/Cythru
+      </a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
