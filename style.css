@@ -335,6 +335,42 @@ h2 {
   transform: translate(2px, -2px);
 }
 
+/* ─── FEATURED PROJECT ────────────────────────────────────── */
+
+.project-featured {
+  grid-column: 1 / -1;
+  border-color: rgba(124, 106, 247, 0.3);
+  background: linear-gradient(135deg, #111111 0%, rgba(124, 106, 247, 0.04) 100%);
+}
+
+.project-featured:hover {
+  border-color: rgba(124, 106, 247, 0.6);
+  box-shadow: 0 8px 48px rgba(124, 106, 247, 0.12);
+}
+
+.project-featured-badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+  background: rgba(124, 106, 247, 0.15);
+  color: var(--accent);
+  border: 1px solid rgba(124, 106, 247, 0.4);
+  margin-left: auto;
+  margin-right: 0.5rem;
+}
+
+.project-featured code {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  background: rgba(124, 106, 247, 0.1);
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+  color: var(--accent);
+}
+
 .project-desc {
   font-size: 0.85rem;
   color: var(--text-muted);
