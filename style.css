@@ -358,6 +358,105 @@ h2 {
   color: var(--text-muted);
 }
 
+/* ─── ROADMAP ─────────────────────────────────────────────── */
+
+.roadmap-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.2rem;
+  margin-top: 2rem;
+}
+
+.roadmap-project {
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-card);
+}
+
+.roadmap-project-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.roadmap-project-name {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.roadmap-project-name:hover {
+  opacity: 0.75;
+}
+
+.roadmap-status {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+}
+
+.status-active   { background: rgba(124,106,247,0.12); color: var(--accent); border: 1px solid rgba(124,106,247,0.3); }
+.status-research { background: rgba(255,200,100,0.08); color: #c8a45a;        border: 1px solid rgba(200,164,90,0.3);  }
+
+.roadmap-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.roadmap-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.roadmap-item.done   { color: var(--text-muted); }
+.roadmap-item.next   { color: var(--text); }
+.roadmap-item.future { color: #555; }
+
+.ri-dot {
+  flex-shrink: 0;
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-top: 0.35em;
+}
+
+.roadmap-item.done   .ri-dot,   .ri-dot.done   { background: #3a3a3a; }
+.roadmap-item.next   .ri-dot,   .ri-dot.next   { background: var(--accent); box-shadow: 0 0 6px rgba(124,106,247,0.6); }
+.roadmap-item.future .ri-dot,   .ri-dot.future { background: #333; border: 1px solid #444; }
+
+.roadmap-legend {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  align-items: center;
+}
+
+.roadmap-legend span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.roadmap-legend .ri-dot {
+  margin-top: 0;
+}
+
 /* ─── VOIDFORGE ───────────────────────────────────────────── */
 
 #voidforge .vf-header {
