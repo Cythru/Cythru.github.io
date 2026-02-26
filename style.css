@@ -519,6 +519,97 @@ h2 {
   fill: currentColor;
 }
 
+/* ─── CONTACT ─────────────────────────────────────────────── */
+
+.contact-sub {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  margin-bottom: 2rem;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.2rem;
+}
+
+.contact-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.4rem 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-card);
+  text-decoration: none;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.contact-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(124, 106, 247, 0.4);
+  box-shadow: 0 8px 32px rgba(124, 106, 247, 0.08);
+}
+
+.contact-icon {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-dim);
+  border-radius: 6px;
+  color: var(--accent);
+}
+
+.contact-icon svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.contact-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.contact-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.2rem;
+}
+
+.contact-value {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.contact-note {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 0.2rem;
+}
+
+.contact-arrow {
+  flex-shrink: 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  transition: color 0.2s, transform 0.2s;
+}
+
+.contact-card:hover .contact-arrow {
+  color: var(--accent);
+  transform: translate(2px, -2px);
+}
+
 /* ─── FOOTER ──────────────────────────────────────────────── */
 
 footer {
