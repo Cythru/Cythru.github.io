@@ -14,6 +14,7 @@
   <nav>
     <a class="nav-wordmark" href="#">Cy<span>thru</span></a>
     <div style="display:flex;align-items:center;gap:1.5rem;">
+    <a class="nav-link" href="#blog">Writing</a>
     <a class="nav-link" href="#contact">Contact</a>
     <a class="nav-link" href="https://github.com/Cythru" target="_blank" rel="noopener">
       <svg viewBox="0 0 16 16" aria-hidden="true">
@@ -398,6 +399,65 @@
       <p class="vf-tagline reveal">Open systems. Zero abstractions.</p>
       <a class="vf-link reveal" href="https://github.com/Cythru" target="_blank" rel="noopener">
         Browse all projects
+        <svg viewBox="0 0 16 16" aria-hidden="true">
+          <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0
+               0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293
+               8.5H1.5A.5.5 0 0 1 1 8z"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section id="blog">
+    <div class="container">
+      <p class="section-label reveal">Writing</p>
+      <h2 class="reveal">From the forge</h2>
+      <div class="blog-grid">
+
+        <a class="blog-card reveal" href="https://github.com/Cythru/Cythru/discussions" target="_blank" rel="noopener">
+          <div class="blog-meta">
+            <span class="blog-tag">Inference</span>
+            <span class="blog-date">2025-01-12</span>
+          </div>
+          <div class="blog-title">VOIDWEB: Beating vLLM without Python</div>
+          <div class="blog-excerpt">How we built a from-scratch LLM inference engine in BlackMagic that outperforms vLLM and SGLang on throughput and TTFT — with zero Python runtime.</div>
+          <span class="blog-arrow">↗</span>
+        </a>
+
+        <a class="blog-card reveal" href="https://github.com/Cythru/Cythru/discussions" target="_blank" rel="noopener">
+          <div class="blog-meta">
+            <span class="blog-tag">Language Design</span>
+            <span class="blog-date">2025-01-05</span>
+          </div>
+          <div class="blog-title">Why we built BlackMagic</div>
+          <div class="blog-excerpt">C++ and Zig got us most of the way. GPU kernels required something else. The design decisions behind a systems language that targets both native and PTX from one source tree.</div>
+          <span class="blog-arrow">↗</span>
+        </a>
+
+        <a class="blog-card reveal" href="https://github.com/Cythru/Cythru/discussions" target="_blank" rel="noopener">
+          <div class="blog-meta">
+            <span class="blog-tag">Deep Dive</span>
+            <span class="blog-date">2024-12-28</span>
+          </div>
+          <div class="blog-title">PagedAttention vs RadixAttention</div>
+          <div class="blog-excerpt">PagedAttention solves memory fragmentation. RadixAttention solves prefix recomputation. We implemented both — here's what the numbers look like when you combine them.</div>
+          <span class="blog-arrow">↗</span>
+        </a>
+
+        <a class="blog-card reveal" href="https://github.com/Cythru/Cythru/discussions" target="_blank" rel="noopener">
+          <div class="blog-meta">
+            <span class="blog-tag">Philosophy</span>
+            <span class="blog-date">2024-12-15</span>
+          </div>
+          <div class="blog-title">Zero abstractions is not zero design</div>
+          <div class="blog-excerpt">The VoidForge principle is often misread as "write everything from scratch every time." It isn't. It's about refusing abstractions that cost more than they save.</div>
+          <span class="blog-arrow">↗</span>
+        </a>
+
+      </div>
+      <a class="vf-link reveal" href="https://github.com/Cythru/Cythru/discussions" target="_blank" rel="noopener">
+        All posts on GitHub Discussions
         <svg viewBox="0 0 16 16" aria-hidden="true">
           <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0
                0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293
