@@ -564,6 +564,17 @@ footer {
   fill: currentColor;
 }
 
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.footer-right.kofi:hover {
+  color: #ff5e5b;
+}
+
 /* ─── ANIMATIONS ──────────────────────────────────────────── */
 
 @keyframes fadeUp {
