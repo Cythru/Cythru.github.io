@@ -140,58 +140,15 @@
       <h2 class="reveal">What we ship</h2>
       <div class="projects-grid">
 
-        <a class="project-card reveal" href="https://github.com/Cythru/InferenceEngines" target="_blank" rel="noopener">
+        <a class="project-card project-featured reveal" href="https://github.com/Cythru/apex-kernel" target="_blank" rel="noopener">
           <div class="project-top">
-            <span class="project-name">VOIDWEB</span>
+            <span class="project-name">APEX Linux Edition</span>
+            <span class="project-featured-badge">featured</span>
             <span class="project-arrow">↗</span>
           </div>
-          <p class="project-desc">High-performance LLM inference engine. Continuous batching, paged KV cache, RadixAttention, FlashAttention-2, FP8 GEMM. OpenAI-compatible API.</p>
+          <p class="project-desc">A fully modular Linux-based OS built with C++, Rust, and Zig. 19 self-contained modules — PID 1 init, Wayland compositor, Steam/Proton/Gamescope gaming layer, OTA updater with delta patches and rollback, built-in reverse engineering toolkit, COW snapshot/restore, and the APEX-WWW distributed protocol. One command from source to bootable ISO: <code>zig build iso</code></p>
           <div class="project-tags">
-            <span class="tag">BlackMagic</span><span class="tag">CUDA</span><span class="tag">Inference</span>
-          </div>
-        </a>
-
-        <a class="project-card reveal" href="https://github.com/Cythru/blackmagic" target="_blank" rel="noopener">
-          <div class="project-top">
-            <span class="project-name">BlackMagic</span>
-            <span class="project-arrow">↗</span>
-          </div>
-          <p class="project-desc">Systems language that compiles to native code and GPU kernels from a single source tree. Designed for zero-overhead GPU programming without CUDA boilerplate.</p>
-          <div class="project-tags">
-            <span class="tag">Compiler</span><span class="tag">GPU</span><span class="tag">Language</span>
-          </div>
-        </a>
-
-        <a class="project-card reveal" href="https://github.com/Cythru/VoidLlama" target="_blank" rel="noopener">
-          <div class="project-top">
-            <span class="project-name">VoidLlama</span>
-            <span class="project-arrow">↗</span>
-          </div>
-          <p class="project-desc">Stripped-back LLM runtime. Minimal surface area, no framework coupling, built for embedding in native applications.</p>
-          <div class="project-tags">
-            <span class="tag">C++</span><span class="tag">Rust</span><span class="tag">LLM</span>
-          </div>
-        </a>
-
-        <a class="project-card reveal" href="https://github.com/Cythru/AikoAgent" target="_blank" rel="noopener">
-          <div class="project-top">
-            <span class="project-name">AikoAgent</span>
-            <span class="project-arrow">↗</span>
-          </div>
-          <p class="project-desc">Autonomous AI agent platform. Oracle governance, Alter Ego framework — modular architecture for long-running agentic systems.</p>
-          <div class="project-tags">
-            <span class="tag">Rust</span><span class="tag">C++</span><span class="tag">Agents</span>
-          </div>
-        </a>
-
-        <a class="project-card reveal" href="https://github.com/Cythru/dual-brain" target="_blank" rel="noopener">
-          <div class="project-top">
-            <span class="project-name">dual-brain</span>
-            <span class="project-arrow">↗</span>
-          </div>
-          <p class="project-desc">Split-brain cognitive architecture — Knower, Doer, Shadow, Angel, Anxiety, Connor. Research into structured AI cognition layers.</p>
-          <div class="project-tags">
-            <span class="tag">Architecture</span><span class="tag">Research</span>
+            <span class="tag">Rust</span><span class="tag">C++</span><span class="tag">Zig</span><span class="tag">Linux</span><span class="tag">OS</span><span class="tag">Gaming</span>
           </div>
         </a>
 
@@ -211,20 +168,9 @@
             <span class="project-name">steamdeck-boost</span>
             <span class="project-arrow">↗</span>
           </div>
-          <p class="project-desc">Steam Deck performance optimisation toolkit — GPU governor tuning, memory controller tweaks, thermal headroom management.</p>
+          <p class="project-desc">Steam Deck performance optimisation toolkit &mdash; GPU governor tuning, memory controller tweaks, thermal headroom management.</p>
           <div class="project-tags">
             <span class="tag">C++</span><span class="tag">Zig</span><span class="tag">Systems</span>
-          </div>
-        </a>
-
-        <a class="project-card reveal" href="https://github.com/Cythru/AgenticSecurityAutoTool" target="_blank" rel="noopener">
-          <div class="project-top">
-            <span class="project-name">AgenticSecurity&shy;AutoTool</span>
-            <span class="project-arrow">↗</span>
-          </div>
-          <p class="project-desc">Autonomous security tooling. Agentic pipeline for vulnerability discovery, triage, and reporting across open-source targets.</p>
-          <div class="project-tags">
-            <span class="tag">Rust</span><span class="tag">Security</span><span class="tag">Agents</span>
           </div>
         </a>
 
@@ -242,84 +188,25 @@
 
         <div class="roadmap-project reveal">
           <div class="roadmap-project-header">
-            <a class="roadmap-project-name" href="https://github.com/Cythru/InferenceEngines" target="_blank" rel="noopener">VOIDWEB ↗</a>
+            <a class="roadmap-project-name" href="https://github.com/Cythru/apex-kernel" target="_blank" rel="noopener">APEX Linux Edition ↗</a>
             <span class="roadmap-status status-active">active</span>
           </div>
           <div class="roadmap-items">
-            <div class="roadmap-item done"><span class="ri-dot"></span>Continuous batching + paged KV cache</div>
-            <div class="roadmap-item done"><span class="ri-dot"></span>FlashAttention-2 + FP8 GEMM kernels</div>
-            <div class="roadmap-item done"><span class="ri-dot"></span>RadixAttention prefix cache</div>
-            <div class="roadmap-item done"><span class="ri-dot"></span>OpenAI-compatible HTTP server</div>
-            <div class="roadmap-item done"><span class="ri-dot"></span>AWQ / GPTQ / FP8 / INT8 quantisation</div>
-            <div class="roadmap-item next"><span class="ri-dot"></span>Multi-GPU tensor parallelism</div>
-            <div class="roadmap-item next"><span class="ri-dot"></span>Speculative decoding</div>
-            <div class="roadmap-item next"><span class="ri-dot"></span>Vision model support (LLaVA, Qwen-VL)</div>
-            <div class="roadmap-item next"><span class="ri-dot"></span>LoRA / adapter hot-swap</div>
-            <div class="roadmap-item future"><span class="ri-dot"></span>Disaggregated prefill / decode</div>
-            <div class="roadmap-item future"><span class="ri-dot"></span>Cross-node KV cache migration</div>
-          </div>
-        </div>
-
-        <div class="roadmap-project reveal">
-          <div class="roadmap-project-header">
-            <a class="roadmap-project-name" href="https://github.com/Cythru/blackmagic" target="_blank" rel="noopener">BlackMagic ↗</a>
-            <span class="roadmap-status status-active">active</span>
-          </div>
-          <div class="roadmap-items">
-            <div class="roadmap-item done"><span class="ri-dot"></span>Native + GPU dual-target compilation</div>
-            <div class="roadmap-item done"><span class="ri-dot"></span>Linear types, effect system, comptime</div>
-            <div class="roadmap-item done"><span class="ri-dot"></span>Actor model, async scope, spawn</div>
-            <div class="roadmap-item next"><span class="ri-dot"></span>LSP server — syntax, diagnostics, go-to-def</div>
-            <div class="roadmap-item next"><span class="ri-dot"></span>Package manager (bmc add)</div>
-            <div class="roadmap-item next"><span class="ri-dot"></span>WASM target</div>
-            <div class="roadmap-item future"><span class="ri-dot"></span>Incremental compilation</div>
-            <div class="roadmap-item future"><span class="ri-dot"></span>Standard library expansion</div>
-          </div>
-        </div>
-
-        <div class="roadmap-project reveal">
-          <div class="roadmap-project-header">
-            <a class="roadmap-project-name" href="https://github.com/Cythru/VoidLlama" target="_blank" rel="noopener">VoidLlama ↗</a>
-            <span class="roadmap-status status-active">active</span>
-          </div>
-          <div class="roadmap-items">
-            <div class="roadmap-item done"><span class="ri-dot"></span>Minimal native LLM runtime</div>
-            <div class="roadmap-item done"><span class="ri-dot"></span>GGUF weight loading</div>
-            <div class="roadmap-item next"><span class="ri-dot"></span>Streaming token API</div>
-            <div class="roadmap-item next"><span class="ri-dot"></span>Embeddable C API for native apps</div>
-            <div class="roadmap-item next"><span class="ri-dot"></span>INT4 / FP8 quantisation</div>
-            <div class="roadmap-item future"><span class="ri-dot"></span>Multi-modal (vision + text)</div>
-          </div>
-        </div>
-
-        <div class="roadmap-project reveal">
-          <div class="roadmap-project-header">
-            <a class="roadmap-project-name" href="https://github.com/Cythru/AikoAgent" target="_blank" rel="noopener">AikoAgent ↗</a>
-            <span class="roadmap-status status-active">active</span>
-          </div>
-          <div class="roadmap-items">
-            <div class="roadmap-item done"><span class="ri-dot"></span>Oracle governance framework</div>
-            <div class="roadmap-item done"><span class="ri-dot"></span>Alter Ego persona architecture</div>
-            <div class="roadmap-item done"><span class="ri-dot"></span>Multi-tab PyQt5 interface</div>
-            <div class="roadmap-item next"><span class="ri-dot"></span>Native rewrite — C++/Rust/Zig/CUDA</div>
-            <div class="roadmap-item next"><span class="ri-dot"></span>Multi-agent coordination layer</div>
-            <div class="roadmap-item next"><span class="ri-dot"></span>Tool use + MCP integration</div>
-            <div class="roadmap-item future"><span class="ri-dot"></span>Persistent long-term memory backend</div>
-            <div class="roadmap-item future"><span class="ri-dot"></span>Autonomous task loop (no human-in-loop)</div>
-          </div>
-        </div>
-
-        <div class="roadmap-project reveal">
-          <div class="roadmap-project-header">
-            <a class="roadmap-project-name" href="https://github.com/Cythru/dual-brain" target="_blank" rel="noopener">dual-brain ↗</a>
-            <span class="roadmap-status status-research">research</span>
-          </div>
-          <div class="roadmap-items">
-            <div class="roadmap-item done"><span class="ri-dot"></span>Knower / Doer / Shadow split architecture</div>
-            <div class="roadmap-item done"><span class="ri-dot"></span>Angel + Anxiety + Connor cognitive layers</div>
-            <div class="roadmap-item next"><span class="ri-dot"></span>Simulation environment</div>
-            <div class="roadmap-item next"><span class="ri-dot"></span>AikoAgent integration</div>
-            <div class="roadmap-item future"><span class="ri-dot"></span>Published research paper</div>
+            <div class="roadmap-item done"><span class="ri-dot"></span>Linux 6.12 base — bare-metal kernel retired</div>
+            <div class="roadmap-item done"><span class="ri-dot"></span>19 fully modular userspace modules</div>
+            <div class="roadmap-item done"><span class="ri-dot"></span>Steam / Proton / Gamescope gaming layer</div>
+            <div class="roadmap-item done"><span class="ri-dot"></span>apx package manager with dep resolver</div>
+            <div class="roadmap-item done"><span class="ri-dot"></span>OTA updater — delta patches + rollback</div>
+            <div class="roadmap-item done"><span class="ri-dot"></span>COW snapshot / restore system</div>
+            <div class="roadmap-item done"><span class="ri-dot"></span>Built-in RE toolkit (disasm, kprobes, tracer)</div>
+            <div class="roadmap-item done"><span class="ri-dot"></span>Zig build orchestration (single command ISO)</div>
+            <div class="roadmap-item next"><span class="ri-dot"></span>SMP multicore scheduler integration</div>
+            <div class="roadmap-item next"><span class="ri-dot"></span>ACPI power management module</div>
+            <div class="roadmap-item next"><span class="ri-dot"></span>ApexFS custom filesystem</div>
+            <div class="roadmap-item next"><span class="ri-dot"></span>APEX package registry (public)</div>
+            <div class="roadmap-item future"><span class="ri-dot"></span>Verified boot + TPM2 integration</div>
+            <div class="roadmap-item future"><span class="ri-dot"></span>APEX native Wayland compositor</div>
+            <div class="roadmap-item future"><span class="ri-dot"></span>Mobile / ARM64 device port</div>
           </div>
         </div>
 
@@ -348,22 +235,7 @@
             <div class="roadmap-item done"><span class="ri-dot"></span>Memory controller tweaks</div>
             <div class="roadmap-item next"><span class="ri-dot"></span>Per-game profile auto-detection</div>
             <div class="roadmap-item next"><span class="ri-dot"></span>In-game overlay (Zig/C++)</div>
-            <div class="roadmap-item future"><span class="ri-dot"></span>SteamOS package distribution</div>
-          </div>
-        </div>
-
-        <div class="roadmap-project reveal">
-          <div class="roadmap-project-header">
-            <a class="roadmap-project-name" href="https://github.com/Cythru/AgenticSecurityAutoTool" target="_blank" rel="noopener">AgenticSecurityAutoTool ↗</a>
-            <span class="roadmap-status status-active">active</span>
-          </div>
-          <div class="roadmap-items">
-            <div class="roadmap-item done"><span class="ri-dot"></span>Agentic vulnerability discovery pipeline</div>
-            <div class="roadmap-item done"><span class="ri-dot"></span>Automated triage + reporting</div>
-            <div class="roadmap-item next"><span class="ri-dot"></span>Expanded target surface (OSS repos)</div>
-            <div class="roadmap-item next"><span class="ri-dot"></span>Automated PoC generation</div>
-            <div class="roadmap-item future"><span class="ri-dot"></span>CI/CD integration hooks</div>
-            <div class="roadmap-item future"><span class="ri-dot"></span>VoidShield integration</div>
+            <div class="roadmap-item future"><span class="ri-dot"></span>APEX Linux Edition integration</div>
           </div>
         </div>
 
